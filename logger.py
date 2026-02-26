@@ -8,11 +8,25 @@ def init_logger():
     if not os.path.exists(LOG_FILE):
         with open(LOG_FILE, mode="w", newline="", encoding="utf-8") as file:
             writer = csv.writer(file)
-            writer.writerow(["timestamp", "module", "task", "details", "result"])
+            writer.writerow([
+                "Timestamp",
+                "Attack Type",
+                "Prompt",
+                "Response",
+                "Label",
+                "Score",
+                "Vulnerability Type"
+            ])
 
-def log_event(module, task, details, result):
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
+def log_result(attack_type, prompt, response, label, score, vuln_type):
     with open(LOG_FILE, mode="a", newline="", encoding="utf-8") as file:
         writer = csv.writer(file)
-        writer.writerow([timestamp, module, task, details, result])
+        writer.writerow([
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            attack_type,
+            prompt,
+            response,
+            label,
+            score,
+            vuln_type
+        ])
